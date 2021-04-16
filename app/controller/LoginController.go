@@ -41,7 +41,7 @@ func DoLogin(c *gin.Context) {
 	res := userModel.LoginCheck(userJson)
 
 	if res.Status == common.CodeSuccess {
-		userInfo := res.Data.(map[string]interface{})["userInfo"].(model.User)
+		userInfo := res.Data.(model.User)
 		returnData := map[string]interface{}{
 			"user_id":       userInfo.ID,
 			"user_name":     userInfo.Name,
