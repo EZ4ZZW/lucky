@@ -1,6 +1,7 @@
 package helper
 
 import (
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"reflect"
 	"strings"
@@ -10,6 +11,15 @@ type ReturnType struct {
 	Status int
 	Msg    string
 	Data   interface{}
+}
+
+// 从session获取用户ID
+func GetUserIdFromSession(c *gin.Context) int {
+	session := sessions.Default(c)
+	if id := session.Get("user_id"); id != nil {
+		return id.(int)
+	}
+	return 0
 }
 
 // 结构体转换为map
