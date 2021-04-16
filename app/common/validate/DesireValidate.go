@@ -6,18 +6,18 @@ var DesireValidate helper.Validator
 
 func init() {
 	rules := map[string]string{
-		"user_id":        "required",
-		"idcard_number":  "required",
-		"nick":           "required",
-		"password":       "required",
-		"school":         "required",
-		"major":          "required",
-		"contact":        "required",
-		"mail":           "required|email",
+		"desire":         "required",
+		"id":             "required",
+		"wishman_name":   "required",
+		"wishman_wechat": "required",
+		"wishman_tel":    "required",
+		"wishman_qq":     "required",
 	}
 
 	scenes := map[string][]string{
-		"login": {"idcard_number", "password"},
+		"add":     {"desire", "wishman_name", "wishman_qq"},
+		"achieve": {"id"},
+		"getUser": {""},
 	}
 	DesireValidate.Rules = rules
 	DesireValidate.Scenes = scenes
