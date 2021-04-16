@@ -11,6 +11,14 @@ func Routes(router *gin.Engine) {
 	{
 		api.POST("/login", Controller.DoLogin)
 		api.POST("/user/email")
+
+		wishes := api.Group("/wishes")
+		{
+			wishes.POST("", Controller.AddDesire)
+			wishes.POST("/light", Controller.AchieveDesire)
+			wishes.GET("", Controller.GetUserDesire)
+		}
+
 		api.GET("")
 	}
 
