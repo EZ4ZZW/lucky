@@ -1,10 +1,11 @@
 package model
 
 import (
-	"github.com/gin-gonic/gin"
 	"lucky/app/common"
 	"lucky/app/helper"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 type Desire struct {
@@ -58,4 +59,47 @@ func (model *Desire) AchieveDesire(data Desire) helper.ReturnType {
 	}
 
 	return helper.ReturnType{Status: common.CodeSuccess, Msg: "实现愿望失败，该愿望已经被别人抢先实现了", Data: 1}
+}
+
+// 左右翻动查看单个愿望
+func (model *Desire) GetWishByID(data Desire) helper.ReturnType {
+
+	var desire Desire
+
+	err := db.Model(&Desire{}).Where("id = ?", data.ID).Find(&desire).Error
+
+	if err != nil {
+		return helper.ReturnType{Status: common.CodeError, Msg: "查看愿望失败", Data: err.Error()}
+	}
+
+	return helper.ReturnType{Status: common.CodeSuccess, Msg: "查看愿望成功", Data: desire}
+
+}
+
+// 按分类查看愿望
+func (model *Desire) GetWishByCategories(data Desire) helper.ReturnType {
+
+	var desire []*Desire
+
+	err := db.Model(&Desire{}).Where("type = ?", data.Type).Find(&desire).Error
+
+	if err != nil {
+		return helper.ReturnType{Status: common.CodeError, Msg: "查看愿望失败", Data: err.Error()}
+	}
+
+	return helper.ReturnType{Status: common.CodeSuccess, Msg: "查看愿望成功", Data: desire}
+
+}
+
+// 删除愿望
+func (model *Desire) DeleteWish(data Desire) helper.ReturnType {
+
+	err := db.Delete(&Desire{}, data.ID).Error
+
+	if err != nil {
+		return helper.ReturnType{Status: common.CodeError, Msg: "删除愿望失败", Data: err.Error()}
+	}
+
+	return helper.ReturnType{Status: common.CodeSuccess, Msg: "删除愿望成功", Data: ""}
+
 }

@@ -83,3 +83,90 @@ func GetUserDesire(c *gin.Context) {
 
 	c.JSON(http.StatusOK, helper.ApiReturn(res.Status, res.Msg, res.Data))
 }
+
+// 通过点击一个愿望查看 该愿望 详情
+func GetWishByID(c *gin.Context) {
+	// 定义一个 结构体 用来接收愿望详情
+	var desireModel model.Desire
+
+	// 定义一个 结构体 用来接 json格式 的愿望ID
+	var desireJson model.Desire
+
+	// 初始化一个 验证器 用来校验数据格式
+	desireValidate := validate.DesireValidate
+
+	if err := c.ShouldBindJSON(&desireJson); err != nil {
+		c.JSON(http.StatusOK, helper.ApiReturn(common.CodeError, "数据模型绑定失败", err.Error()))
+		return
+	}
+
+	// 将json数据的结构体转化为map，转化为map的目的只是为了校验格式
+	desireMap := helper.Struct2Map(desireJson)
+
+	if res, err := desireValidate.ValidateMap(desireMap, "achieve"); !res {
+		c.JSON(http.StatusOK, helper.ApiReturn(common.CodeError, "数据校验失败", err.Error()))
+		return
+	}
+
+	res := desireModel.GetWishByID(desireJson)
+	c.JSON(http.StatusOK, helper.ApiReturn(res.Status, res.Msg, res.Data))
+
+}
+
+// 通过点击分类查看 同种愿望
+func GetWishByCatagories(c *gin.Context) {
+	// 定义一个 结构体 用来接收愿望详情
+	var desireModel model.Desire
+
+	// 定义一个 结构体 用来接 json格式 的愿望type
+	var desireJson model.Desire
+
+	// 初始化一个 验证器 用来校验数据格式
+	// desireValidate := validate.DesireValidate
+
+	if err := c.ShouldBindJSON(&desireJson); err != nil {
+		c.JSON(http.StatusOK, helper.ApiReturn(common.CodeError, "数据模型绑定失败", err.Error()))
+		return
+	}
+
+	// 将json数据的结构体转化为map，转化为map的目的只是为了校验格式
+	// desireMap := helper.Struct2Map(desireJson)
+
+	// if res, err := desireValidate.ValidateMap(desireMap, "achieve"); !res {
+	// 	c.JSON(http.StatusOK, helper.ApiReturn(common.CodeError, "数据校验失败", err.Error()))
+	// 	return
+	// }
+
+	res := desireModel.GetWishByCategories(desireJson)
+	c.JSON(http.StatusOK, helper.ApiReturn(res.Status, res.Msg, res.Data))
+
+}
+
+// 删除愿望
+func DeleteWish(c *gin.Context) {
+	// 定义一个 结构体 用来接收愿望详情
+	var desireModel model.Desire
+
+	// 定义一个 结构体 用来接 json格式 的愿望Type
+	var desireJson model.Desire
+
+	// 初始化一个 验证器 用来校验数据格式
+	desireValidate := validate.DesireValidate
+
+	if err := c.ShouldBindJSON(&desireJson); err != nil {
+		c.JSON(http.StatusOK, helper.ApiReturn(common.CodeError, "数据模型绑定失败", err.Error()))
+		return
+	}
+
+	// 将json数据的结构体转化为map，转化为map的目的只是为了校验格式
+	desireMap := helper.Struct2Map(desireJson)
+
+	if res, err := desireValidate.ValidateMap(desireMap, "achieve"); !res {
+		c.JSON(http.StatusOK, helper.ApiReturn(common.CodeError, "数据校验失败", err.Error()))
+		return
+	}
+
+	res := desireModel.DeleteWish(desireJson)
+	c.JSON(http.StatusOK, helper.ApiReturn(res.Status, res.Msg, res.Data))
+
+}

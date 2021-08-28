@@ -17,6 +17,9 @@ func Routes(router *gin.Engine) {
 			wishes.POST("", Controller.AddDesire)
 			wishes.POST("/light", Controller.AchieveDesire)
 			wishes.GET("", Controller.GetUserDesire)
+			wishes.GET("/byID", Controller.GetWishByID)
+			wishes.GET("/categories", Controller.GetWishByCatagories)
+			wishes.DELETE("", Controller.DeleteWish)
 		}
 
 		api.GET("")
