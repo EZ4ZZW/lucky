@@ -13,7 +13,7 @@ type Desire struct {
 	Desire        string    `json:"wish" gorm:"desire"`
 	LightAt       time.Time `json:"light_at" gorm:"light_at"`
 	CreatAt       time.Time `json:"creat_at" gorm:"creat_at"`
-	WishmanName   string    `json:"wishman_name" gorm:"wishman_qq"`
+	WishmanName   string    `json:"wishman_name" gorm:"wishman_name"`
 	WishmanQQ     string    `json:"wishman_qq" gorm:"wishman_qq"`
 	WishmanWechat string    `json:"wishman_wechat" gorm:"wishman_wechat"`
 	WishmanTel    string    `json:"wishman_tel" gorm:"wishman_tel"`
