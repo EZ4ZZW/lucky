@@ -18,3 +18,18 @@ func (model *Message) LeaveMessage(data Message) helper.ReturnType {
 		return helper.ReturnRes(common.CodeSuccess, "留言成功", data)
 	}
 }
+
+// TODO:
+func (model *Message) GetMessageByID(id int) helper.ReturnType {
+	message := Message{}
+	err := db.
+		Model(&Message{}).
+		Where("desire_id = ?", id).
+		First(&message).
+		Error
+
+	if err != nil {
+		return helper.ReturnRes(common.CodeError, "获取留言失败", err.Error())
+	}
+	return helper.ReturnRes(common.CodeSuccess, "获取留言成功", message)
+}

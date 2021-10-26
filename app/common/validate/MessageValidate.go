@@ -12,7 +12,7 @@ func init() {
 
 	scenes := map[string][]string{
 		"leave": {"desire_id", "message"},
-		"get":   {"message"},
+		"get":   {"desire_id"},
 	}
 	MessageValidate.Rules = rules
 	MessageValidate.Scenes = scenes

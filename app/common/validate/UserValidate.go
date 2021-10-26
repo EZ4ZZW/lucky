@@ -20,7 +20,7 @@ func init() {
 
 	scenes := map[string][]string{
 		"login": {"idcard_number", "password"},
-		"email": {"idcard_number", "email"},
+		"email": {"email"},
 	}
 	UserValidate.Rules = rules
 	UserValidate.Scenes = scenes
